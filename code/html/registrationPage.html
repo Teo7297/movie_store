@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Registration Page</title>
+   
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    
+    <!--Custom scripts-->
+	<script src="../JS/formScripts.js" ></script>
+	<script src="../JS/cookies.js"></script>
+
+</head>
+<body onload="checkCookie()">
+<div class="container">
+	<!-- TODO DELETE THIS BUTTON-->
+	<button type="button" onclick="clearDB()" class="btn btn-danger">DEV: RESET DATA</button>
+	
+	<div class="d-flex justify-content-center h-100">
+		
+		<div class="card">
+			<div class="card-header">
+				<h3>Registrazione</h3>
+			</div>
+			
+			<div class="card-body">
+				<div id="empty-fields-message" hidden class="fas fa-exclamation-circle" style="float: left; color: red;"><h5 id="empty-fields-message">Compilare tutti i campi perfavore</h5></div>
+				<form id="signup-form">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-file-signature"></i></span>
+						</div>
+						<input id = "name"  type="text" class="form-control" placeholder="nome">
+						<input id = "surname"  type="text" class="form-control" placeholder="cognome">		
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+                        <input id = "email" onkeyup="checkEmail()" type="text" class="form-control" placeholder="e-mail">		
+					</div>
+					<div id='messageEmail'></div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input id="password" onkeyup="checkPsw();" type="password" class="form-control" placeholder="password">
+                    </div>
+                    <div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+                        <input id="confirm_password" onkeyup="checkPsw();" type="password" class="form-control" placeholder="conferma password">
+                    </div>
+					<div id='message'></div>
+					<div class="row align-items-center remember">
+						<input id="privacy-checkbox" onclick="toggleButton()" type="checkbox">Ho letto e accetto le condizioni sulla&nbsp;<a href="#">privacy</a>
+					</div>
+					<div class="a-bit-more-top a-bit-more-bottom input-group form-group">
+						<div class="input-group-prepend-extra">
+							<span class="input-group-text">Ruolo</span>
+						</div>
+						<select onchange="showFields()" id="select-user-type" class="form-select" aria-label="Default select example">
+							<option value="0" selected>-</option>
+							<option value="1">cliente</option>
+							<option value="2">venditore</option>
+						</select>
+					</div>
+
+					<!--OPTIONAL FIELDS, SHOW BASED ON SELECTION-->
+					
+					<div hidden class="row align-items-center remember useronly">
+						<input id="service-cb" type="checkbox">Servizio personalizzato&nbsp;<i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="verranno raccolti dati aggiuntivi per la personalizzazione del servizio come la memorizzazione di dati relativi al pagamento dei prodotti"></i>
+					</div>
+					
+					<div hidden class="input-group form-group vendoronly">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-file-signature"></i></span>
+						</div>
+						<input id = "store-name"  type="text" class="form-control" placeholder="nome negozio">
+					</div>
+
+					<div hidden class="input-group form-group vendoronly">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-phone"></i></span>
+						</div>
+						<input id = "phone"  type="text" class="form-control" placeholder="telefono">
+					</div>
+					<div hidden class="input-group form-group vendoronly">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-money-check-alt"></i></span>
+						</div>
+						<input id = "piva"  type="text" class="form-control" placeholder="partita iva">
+					</div>
+					
+					<div hidden class="input-group form-group vendoronly">
+					
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+						</div>
+						<input id="street" class="form-control" placeholder="via">
+						<input id="street-number" class="form-control" placeholder="numero">
+						
+					</div>
+					<div hidden class="input-group form-group vendoronly">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+						</div>
+						<input id="city" class="form-control" placeholder="città">
+						<input id="zip" class="form-control" placeholder="cap">
+					</div>
+	
+					<div class="form-group">
+						<button id="reg-button" disabled type="button" onclick="signupUser()" class="btn float-right margintop">Registrami</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>

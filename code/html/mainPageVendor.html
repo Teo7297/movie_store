@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../css/styleMain.css">
+    
+    <!--Custom scripts-->
+    <script src="../JS/mainPageScripts.js" ></script>
+    <script src="../JS/cookies.js"></script>
+    <script src="../JS/movieSection.js"></script>
+    <script>
+        const setWelcomeMessage = () => {         
+            document.getElementById('first_message').innerHTML = getStoreName(); 
+            document.getElementById('second_message').innerHTML = "Seleziona i film da aggiungere al tuo negozio";
+        }
+        const start = () =>{
+            setWelcomeMessage();
+            checkCookie();
+            search(false);
+        };
+
+        let pageNum = 1;   
+
+        const inc = () => {
+          pageNum = pageNum + 1; 
+          search(false);
+        };
+        const checkKey = (e) =>{
+          if(e.keyCode === 13){
+            search(true);
+          };
+        };
+
+    </script>
+    
+    <title>Main</title>
+    
+    
+</head>
+<body onload="start()">
+
+
+    <div class="user-tab">
+        <div class="user-pic">
+            <div class="circle dropdown">
+                <div class="dropdown-content">
+                    <a class="first" href="account.html">Account</a>
+                    <a href="/code/html/MyStore.html">Il mio negozio</a>
+                    <a href="/code/html/historyStore.html">Cronologia vendite</a>
+                    <a class="last" onclick="delCookieSession()" href="/code/html/loginPage.html">Esci</a>
+                </div>
+            </div>
+        </div>
+        <div id="welcome-message">
+            <div>
+                <h1 id="first_message"></h1>
+            </div>
+            <div>
+              <h2 style="text-align: center;" id="second_message"></h2>
+            </div>
+  
+          </div>
+    </div>
+
+    <div id="bar-box">
+        <input id="searchbar" onkeypress="checkKey(event)" class="" type="text" placeholder="Cerca">
+        <button type="button" class="btn btn-outline-dark" id="search-icon-box" onclick="search(true)">
+            <div class="fas fa-search"></div>
+        </button>
+    </div>
+
+    <div class="movie-tab">
+        <div class="grid-container">
+           
+      
+      </div>
+      <div class="load-more">
+        <button class="btn btn-outline-dark" id="load-more-button" onclick="inc()" type="button">Carica altro</button>
+      </div>
+    </div>
+    <button type="button" onclick="addToShop()" id="add-button" disabled class="btn btn-success">Aggiungi</button>
+
+
+</body>
+</html>

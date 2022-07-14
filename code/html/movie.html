@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film</title>
+
+    <!--Bootstrap 4 CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../css/styleMovie.css">
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/payment.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+
+    <!--Custom scripts-->
+    <script src="../JS/cookies.js"></script>
+    <script src="../JS/movie.js"></script>
+    <script>
+        const searchListId = localStorage.getItem("search_list_id");
+        const selectedMovie = sessionStorage.getItem("selected_movie");
+        const selectedStore = JSON.parse(sessionStorage.getItem("selected_store"));
+        const start = () =>{
+            checkCookie();
+            loadMovie();
+            loadActors();
+            loadPrices();
+        };
+
+    </script>
+</head>
+<body onload="start()">
+    <div class="info-container">
+        <div class="poster-container">
+            <div class="poster"></div>
+        </div>
+        <div class="infos">
+            <h1 class="movie-title"></h1>
+            <h3 class="movie-infos"></h3>
+            <h2 class="movie-rating"><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <div class="p">
+                <p class="movie-description"></p>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="container-movie">
+        <div class="header">
+            <div class="header-img"></div>
+        </div>
+        <div class="lower-half">
+            <div class="actors">
+                <ul id="actors-list"></ul>
+            </div>
+            <div class="buy-buttons">
+                <div>
+                    <button type="button" id="buy" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="toPayment(this)">Acquista&nbsp&nbsp&nbsp</button>
+                    <button type="button" transaction="buy" id="buy-cart" class="btn btn-primary btn-lg"  onclick="addToCart(this)"><i class="fas fa-cart-plus"></i></button>
+                </div>
+                <div>
+                    <button type="button" id="rent" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="toPayment(this)">Noleggia&nbsp&nbsp&nbsp</button>
+                    <button type="button" transaction="rent" id="rent-cart" class="btn btn-primary btn-lg"  onclick="addToCart(this)"><i class="fas fa-cart-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <!--Bootstrap scripts | in fondo per non rallentare il caricamento del codice HTML-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+<!-- Modal for payment -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 style="color: black; font-family: 'Times New Roman';  font-weight: 200;" class="modal-title">Pagamento</h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="mod-box">
+                <label for="pay-box">Seleziona modalità di pagamento</label>
+                <div class="pay-box">      
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onchange="toggleCard()">
+                        <label class="form-check-label" for="inlineRadio1">Carta</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onchange="togglePayPal()">
+                        <label class="form-check-label" for="inlineRadio2">PayPal</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <form onchange="checkForm()" id="pay-form" style="display: none;">
+                
+                <label for="name">Intestatario carta</label>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-file-signature"></i></span>
+                    </div>
+                    <input id = "name"  type="text" class="form-control" placeholder="Nome">
+                    <input id = "surname"  type="text" class="form-control" placeholder="Cognome">		
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-credit-card"></i></span>
+                    </div>
+                    <input onkeyup="checkCardNumber(this)" id = "card-number"  type="text" class="form-control" placeholder="Numero Carta">
+                    <input onkeyup="checkCVV(this)" maxlength="3" id = "cvv"  type="text" class="form-control" placeholder="CVV">
+                    <div>
+                        <label id="card-label" for="card-number" style="display: none; color: red;">Inserire un numero di carta valido</label>		
+                        <label id="cvv-label" for="cvv" style="display: none; color: red;">Inserire un codice CVV valido</label>		
+                    </div>
+                </div>
+                <label for="expire">Data di scadenza</label>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-hourglass"></i></span>
+                    </div>
+                    <input id="expire" onkeypress="return false;" type="date" class="form-control" onchange="checkDate(this)" >    
+                </div>
+                <label for="expire" id="modal-error-message" style="display: none; color: red; " >Carta scaduta / Data di scadenza non valida</label>
+
+                          
+            </form>
+            
+            <div id="pp" style="display: none;" class="btn-box">    
+                <button onclick="toPayPal()" type="button" class="pp-btn btn btn-primary"><i class="fab fa-paypal fa-2x"></i></button>       
+                <i id="check" style="display: none; color: greenyellow; margin-bottom: 30px; margin-left: 20px;" class="fas fa-check fa-2x"></i>
+            </div>
+
+
+            <div class="total-box">
+                <h5>Importo:&nbsp;</h5>
+                <h5 id="total"></h5>
+            </div>
+   
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Annulla</button>
+            <button disabled type="button" id="pay-now" class="btn btn-outline-success" onclick="addToLibrary()">Paga ora</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</html>

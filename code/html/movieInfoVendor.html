@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film</title>
+
+    <!--Bootstrap 4 CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../css/styleMovie.css">
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/payment.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+
+    <!--Custom scripts-->
+    <script src="../JS/cookies.js"></script>
+    <script src="../JS/movie.js"></script>
+    <script>
+        const searchListId = localStorage.getItem("search_list_id");
+        const selectedMovie = sessionStorage.getItem("selected_movie");
+        const selectedStore = JSON.parse(sessionStorage.getItem("selected_store"));
+        const start = () =>{
+            checkCookie();
+            loadMovie();
+            loadActors();
+        };
+        
+    </script>
+</head>
+<body onload="start()">
+    <div class="info-container">
+        <div class="poster-container">
+            <div class="poster"></div>
+        </div>
+        <div class="infos">
+            <h1 class="movie-title"></h1>
+            <h3 class="movie-infos"></h3>
+            <h2 class="movie-rating"><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            <div class="p">
+                <p class="movie-description"></p>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="container-movie">
+        <div class="header">
+            <div class="header-img"></div>
+        </div>
+        <div class="lower-half">
+            <div class="actors" style="width: 100%;">
+                <ul id="actors-list"></ul>
+            </div>
+            
+        </div>
+
+    </div>
+
+</body>
+
+
+</html>

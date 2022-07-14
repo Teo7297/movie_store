@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap 4 CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="../css/styleMain.css">
+    
+    <!--Custom scripts-->
+    <script src="../JS/mainPageScripts.js" ></script>
+    <script src="../JS/cookies.js"></script>
+    <script src="../JS/store.js"></script>
+    <script>
+        const setWelcomeMessage = () => {         
+            document.getElementById('first_message').innerHTML = "Benvenuto " + getUserName() + "!"; 
+            document.getElementById('second_message').innerHTML = "Seleziona una locandina per accedere a maggiori dettagli";
+        }
+        const searchListId = localStorage.getItem("search_list_id");
+        const start = () =>{
+            setWelcomeMessage();
+            checkCookie();
+            search(false);
+        };
+
+        let pageNum = 1;   
+
+        const inc = () => {
+          pageNum = pageNum + 1; 
+          search(false);
+        };
+        const checkKey = (e) =>{
+          if(e.keyCode === 13){
+            search(true);
+          };
+        };
+
+    </script>
+    
+    <title>Main</title>
+    
+    
+</head>
+<body onload="start()">
+
+
+    <div class="user-tab">
+        <div class="user-pic">
+            <div class="circle dropdown">
+                <div class="dropdown-content">
+                    <a class="first" href="#">Account</a>
+                    <a href="/code/html/myMovies.html">I miei film</a>
+                    <a href="/code/html/cart.html">Carrello</a>
+                    <a href="/code/html/mainPage.html">Negozi</a>
+                    <a href="/code/html/historyCustomer.html">Cronologia acquisti</a>
+                    <a class="last" onclick="delCookieSession()" href="/code/html/loginPage.html">Esci</a>
+                </div>
+            </div>
+        </div>
+        <div id="welcome-message">
+            <div>
+                <h1 id="first_message"></h1>
+            </div>
+            <div>
+              <h2 style="text-align: center;" id="second_message"></h2>
+            </div>
+  
+          </div>
+    </div>
+
+    <div id="bar-box">
+        <input id="searchbar" onkeypress="checkKey(event)" class="" type="text" placeholder="Cerca">
+        <button type="button" class="btn btn-outline-dark" id="search-icon-box" onclick="search(true)">
+            <div class="fas fa-search"></div>
+        </button>
+    </div>
+
+    <div class="movie-tab">
+        <div class="grid-container">
+           
+      
+      </div>
+      <div class="load-more">
+        <button class="btn btn-outline-dark" id="load-more-button" onclick="inc()" type="button">Carica altro</button>
+      </div>
+    </div>
+</body>
+
+
+
+</html>

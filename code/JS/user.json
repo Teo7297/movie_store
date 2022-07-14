@@ -1,0 +1,80 @@
+{
+    "userid=hash_email": {
+        "type": "string",
+        "name": "string",
+        "surname": "string",
+        "email": "string",
+        "password": "string",
+        "privacy_accepted": "boolean",
+        "extra": {
+            "payment_preference": "string, at first payment",
+            "customized_service": "boolean",
+            "store_name": "string",
+            "phone": "string",
+            "piva": "string",
+            "address": {
+                "city": "string",
+                "street": "string",
+                "street-number": "int",
+                "cap": "int"
+            },
+            "reviews": [
+                {
+                    "user": "string",
+                    "comment": "string"
+                },
+                {
+                    "user": "string",
+                    "comment": "string"
+                }
+            ],
+            "products": [
+                {
+                    "id?": "string???? da vedere"
+                }
+            ]
+        }
+    },
+    "movie": {
+        "MEMORIZZO IN": "sessionstorage",
+        "title": "string",
+        "actors": [
+            {
+                "name": "string"
+            }
+        ],
+        "director": "string",
+        "genre": "string",
+        "year": "date"
+    },
+    "sessionid": {
+        "user": "user",
+        "cart_items": [
+            {
+                "id": "id"
+            }
+        ],
+        "expiration": "date"
+    },
+
+    "storeName":{
+        "movies":[
+            {
+                "id":"string",
+                "sellPrice":"double",
+                "rentPrice":"double"
+            
+            }
+        ],
+        "id":"int",
+        "sales":[
+            {
+                "idCli":"string",
+                "titoloFilm":"string",
+                "importo":"floata",
+                "data":"date"
+            }
+        ]
+    },
+    "cart":[{"id":"int", "price":"float", "type":"string"}]
+}

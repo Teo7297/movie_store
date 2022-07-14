@@ -1,0 +1,43 @@
+body h1 { 
+    font-family: "Helvetica Neue"; 
+    font-size: 50px; font-style: normal; 
+    font-variant: normal; font-weight: 100; 
+    line-height: 50px;
+    color: white; } 
+
+body h2 { 
+    font-family: "Helvetica Neue"; 
+    font-size: 30px; font-style: normal; 
+    font-variant: normal; font-weight: 100; 
+    line-height: 15px;
+    color: white; } 
+
+body h3 { 
+    font-family: "Helvetica Neue"; 
+    font-size: 20px; font-style: normal; 
+    font-variant: normal; font-weight: 100; 
+    line-height: 15px;
+    color: white; } 
+body h4 { 
+    font-family: "Helvetica Neue"; 
+    font-size: 15px; font-style: normal; 
+    font-variant: normal; font-weight: 100; 
+    line-height: 15px;
+    color: white; } 
+body h6 { 
+    font-family: "Helvetica Neue"; 
+    font-size: 15px; font-style: oblique; 
+    font-variant: normal; font-weight: 50; 
+    line-height: 15px;
+    color: white; } 
+
+    
+body p { 
+    font-family: "Helvetica Neue"; 
+    font-size: 20px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 100; 
+    line-height: 28px;
+    color: white; } 
+  
